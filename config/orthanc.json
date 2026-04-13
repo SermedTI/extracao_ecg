@@ -1,0 +1,10 @@
+{
+  "Name": "ECG Orthanc",
+  "StorageDirectory": "/var/lib/orthanc/db",
+  "AuthenticationEnabled": false,
+  "DicomWeb": {
+    "Enable": true,
+    "Root": "/dicom-web/",
+    "StudiesMetadata": "Full"
+  }
+}

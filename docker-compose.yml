@@ -1,0 +1,40 @@
+services:
+
+  ecg-receiver:
+    build: .
+    ports:
+      - "8765:8080"
+    environment:
+      ORTHANC_URL: http://orthanc:8042
+    depends_on:
+      - orthanc
+    restart: unless-stopped
+
+  orthanc:
+    image: orthancteam/orthanc:latest
+    volumes:
+      - orthanc_data:/var/lib/orthanc/db
+      - ./config/orthanc.json:/etc/orthanc/orthanc.json:ro
+    environment:
+      DICOM_WEB_PLUGIN_ENABLED: "true"
+    restart: unless-stopped
+
+  ohif:
+    image: ohif/app:latest
+    volumes:
+      - ./config/ohif-app-config.js:/usr/share/nginx/html/app-config.js:ro
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8181:80"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - ohif
+      - orthanc
+    restart: unless-stopped
+
+volumes:
+  orthanc_data:
