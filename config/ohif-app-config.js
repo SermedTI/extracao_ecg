@@ -1,5 +1,7 @@
 window.config = {
   routerBasename: '/',
+  extensions: [],
+  modes: [],
   showStudyList: true,
   dataSources: [
     {
