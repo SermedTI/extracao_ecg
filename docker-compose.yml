@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
 
   ohif:
-    image: ohif/app:latest
+    image: ohif/app:v3.7.0
     volumes:
       - ./config/ohif-app-config.js:/usr/share/nginx/html/app-config.js:ro
     restart: unless-stopped
